@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		svg{
+			position: absolute;
+			left: 500px;
+			top: 0px;
+			stroke: black;
+			fill: transparent;
+		}
+		.face{
+			fill: #1196EE;
+		}
+		.face-in{
+			fill: white;
+		}
+		.eyes-left, .eyes-right{
+			fill: white;
+		}
+		.eye-blow-left, .eye-blow-right{
+			fill: black;
+		}
+		.nose{
+			fill: red;
+		}
+		.nose-white{
+			fill: white;
+			stroke: transparent;
+		}
+		.neck{
+			fill: red;
+		}
+		.lingdang{
+			fill: #CECE20;
+		}
+		.body{
+			fill: #1196EE;
+		}
+		.hand{
+			fill: white;
+		}
+		.foot{
+			fill: white;
+		}
+		div{
+			width: 100px;
+			height: 40px;
+			line-height: 40px;
+			font-size: 20px;
+			border: 1px solid black;
+			text-align: center;
+			background-color: gray;
+			color: white;	
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<img src="./A.png" alt="">
+	<svg width="500px" height="500px">
+		<!-- 脸廓 -->
+		<path d="M 100 300 A 148 145 0 1 1 250 300" class="face"></path>
+		<!-- 内脸廓 -->
+		<path d="M 120 300 A 120 100 0 1 1 230 300" class="face-in"></path>
+		<!-- 眼睛 -->
+		<ellipse class="eyes-left" rx="33" ry="42" cx="140" cy="120"></ellipse>
+		<ellipse class="eyes-right" rx="33" ry="42" cx="206" cy="120"></ellipse>
+		<!-- 眼珠 -->
+		<ellipse class="eye-blow-left" rx="5" ry="9" cx="150" cy="135"></ellipse>
+		<ellipse class="eye-blow-right" rx="5" ry="9" cx="195" cy="135"></ellipse>
+		<!-- 鼻子 -->
+		<circle	class="nose" r="15" cx="173" cy="161"></circle>
+		<!-- 鼻子里面的白色 -->
+		<circle	class="nose-white" r="7" cx="180" cy="158"></circle>
+		<!-- 嘴巴 -->
+		<line x1="173" y1="175" x2="173" y2="255"></line>
+		<path d="M 93 225 A 120 105 0 0 0 260 225"></path>
+		<!-- 胡子 -->
+		<line x1="140" y1="180" x2="80" y2="165"></line>
+		<line x1="140" y1="190" x2="70" y2="190"></line>
+		<line x1="140" y1="200" x2="80" y2="220"></line>
+		<line x1="205" y1="180" x2="265" y2="165"></line>
+		<line x1="205" y1="190" x2="275" y2="190"></line>
+		<line x1="205" y1="200" x2="265" y2="220"></line>
+		<!-- 脖子 -->
+		<path class="neck" d="M 90 315 A 10 10 0 1 1 90 295 L 260 295 A 10 10 0 1 1 260 315 L 90 315"></path>
+
+		<!-- 身体轮廓 -->
+		<path class="body" d="M 90 315 L40 290 L 40 325 L 90 350 L 90 440 L 160 440 A 3 3 0 1 1 190 440 L 260 440 L 260 350 L 310 375 L 310 340 L 260 315"></path>
+		<!-- 手			 -->
+		<circle class="hand" r="25" cx="30" cy="305"></circle>
+		<circle class="hand" r="25" cx="315" cy="360"></circle>
+		<!-- 脚 -->
+		<ellipse class="foot" rx="50" ry="15" cx="120" cy="445"></ellipse>
+		<ellipse class="foot" rx="50" ry="15" cx="225" cy="445"></ellipse>
+		<!-- 肚子 -->
+		<path d="M 115 315 A 70 65 0 1 0  235 315" fill="white"></path>
+		<path d="M 135 360 L 215 360 A 30 30 0 1 1 135 360"></path>
+		<!-- 铃铛 -->
+		<circle class="lingdang" r="17" cx="175" cy="320"></circle>
+		<circle r="5" cx="175" cy="328" fill="black"></circle>
+		<line x1="164" y1="310" x2="186" y2="310" stroke="gray"></line>
+		<line x1="160" y1="315" x2="190" y2="315" stroke="gray"></line>
+		<line x1="175" y1="330" x2="175" y2="337"></line>
+
+	</svg>
+	<div>模糊图片</div>
+	<script type="text/javascript">
+
+		var div = document.getElementsByTagName('div')[0];
+		var img = document.getElementsByTagName('img')[0];
+		var flag = false;
+		div.onclick = function(){
+			if(!flag){
+				var w = parseInt((window.getComputedStyle(img, null)['width']));
+				var h = parseInt((window.getComputedStyle(img, null)['height']));
+				var canvas = document.createElement('canvas');
+				canvas.width = w;
+				canvas.height = h;
+				var ctx = canvas.getContext('2d');
+				ctx.fillStyle = ctx.createPattern(img, 'no-repeat');
+				ctx.fillRect(0, 0, w, h);
+				var pixel = ctx.getImageData(0, 0, w, h);
+
+				pixel = gaussBlur(pixel, 10, 10);
+				ctx.putImageData(pixel, 0, 0);
+
+				var data = canvas.toDataURL();
+				img.src = data;	
+				div.innerHTML = '恢复图片';
+				flag = true;
+			}else{
+				img.src = './A.png';
+				flag = false;
+				div.innerHTML = '模糊图片';
+			}
+
+			
+		}
+
+
+
+
+		// -------------------
+		// 高斯模糊  ......
+		function gaussBlur(imgData,radius, sigma) {
+		    var pixes = imgData.data;
+		    var width = imgData.width;
+		    var height = imgData.height;
+		    var gaussMatrix = [],
+		        gaussSum = 0,
+		        x, y,
+		        r, g, b, a,
+		        i, j, k, len;
+
+
+		    radius = Math.floor(radius) || 3;
+		    sigma = sigma || radius / 3;
+
+		    a = 1 / (Math.sqrt(2 * Math.PI) * sigma);
+		    b = -1 / (2 * sigma * sigma);
+		    //生成高斯矩阵
+		    for (i = 0, x = -radius; x <= radius; x++, i++){
+		        g = a * Math.exp(b * x * x);
+		        gaussMatrix[i] = g;
+		        gaussSum += g;
+
+		    }
+		    //归一化, 保证高斯矩阵的值在[0,1]之间
+		    for (i = 0, len = gaussMatrix.length; i < len; i++) {
+		        gaussMatrix[i] /= gaussSum;
+		    }
+		    //x 方向一维高斯运算
+		    for (y = 0; y < height; y++) {
+		        for (x = 0; x < width; x++) {
+		            r = g = b = a = 0;
+		            gaussSum = 0;
+		            for(j = -radius; j <= radius; j++){
+		                k = x + j;
+		                if(k >= 0 && k < width){//确保 k 没超出 x 的范围
+		                    //r,g,b,a 四个一组
+		                    i = (y * width + k) * 4;
+		                    r += pixes[i] * gaussMatrix[j + radius];
+		                    g += pixes[i + 1] * gaussMatrix[j + radius];
+		                    b += pixes[i + 2] * gaussMatrix[j + radius];
+		                    // a += pixes[i + 3] * gaussMatrix[j];
+		                    gaussSum += gaussMatrix[j + radius];
+		                }
+		            }
+		            i = (y * width + x) * 4;
+		            // 除以 gaussSum 是为了消除处于边缘的像素, 高斯运算不足的问题
+		            // console.log(gaussSum)
+		            pixes[i] = r / gaussSum;
+		            pixes[i + 1] = g / gaussSum;
+		            pixes[i + 2] = b / gaussSum;
+		            // pixes[i + 3] = a ;
+		        }
+		    }
+		    //y 方向一维高斯运算
+		    for (x = 0; x < width; x++) {
+		        for (y = 0; y < height; y++) {
+		            r = g = b = a = 0;
+		            gaussSum = 0;
+		            for(j = -radius; j <= radius; j++){
+		                k = y + j;
+		                if(k >= 0 && k < height){//确保 k 没超出 y 的范围
+		                    i = (k * width + x) * 4;
+		                    r += pixes[i] * gaussMatrix[j + radius];
+		                    g += pixes[i + 1] * gaussMatrix[j + radius];
+		                    b += pixes[i + 2] * gaussMatrix[j + radius];
+		                    // a += pixes[i + 3] * gaussMatrix[j];
+		                    gaussSum += gaussMatrix[j + radius];
+		                }
+		            }
+		            i = (y * width + x) * 4;
+		            pixes[i] = r / gaussSum;
+		            pixes[i + 1] = g / gaussSum;
+		            pixes[i + 2] = b / gaussSum;
+		        }
+		    }
+		    //end
+		    imgData.data = pixes;
+		    return imgData;
+		}
+						
+
+    	// ---------
+
+	</script>
+</body>
+</html>
