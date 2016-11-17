@@ -1,0 +1,6 @@
+npm install webpack style-loader css-loader url-loader babel-loader babel-core babel less-loader less jquery
+
+
+npm install webpack-dev-server -g
+
+react: npm install  babel-preset-es2015 babel-preset-react react react-dom

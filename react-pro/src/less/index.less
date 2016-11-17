@@ -1,0 +1,99 @@
+.commentWrapper {
+	width: 70%;
+	margin-bottom:220px;
+	.commentList {
+		.item {
+			position: relative;
+			height: 80px;
+			border-bottom: 1px solid #eee;
+			img {
+				width: 60px;
+				height: 60px;
+				float: left;
+			}
+			p {
+				margin-left: 70px;
+				height: 100%;
+				word-wrap: break-word;
+				margin-right:30px;
+			}
+			a {
+				position: absolute;
+				right:0px;
+				bottom:0px;
+				color: #ccc;
+				text-decoration: none;
+			}
+			a:hover {
+				color: #000;
+			}
+		}
+		
+	}
+	.submitWrapper {
+		position: fixed;
+		height: 200px;
+		bottom: 0px;
+		width: 70%;
+		background-color: #eee;
+		textarea {
+			resize: none;
+			width: 60%;
+			height: 50%;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			-webkit-transform: translateX(-50%) translateY(-50%);
+			-ms-transform: translateX(-50%) translateY(-50%);
+			-o-transform: translateX(-50%) translateY(-50%);
+			transform: translateX(-50%) translateY(-50%);
+		}
+		button {
+			height: 40px;
+			width: 100px;
+			text-align: center;
+			background-color: #afc;
+			font-size: 18px;
+			border: 0px;
+			position: absolute;
+			bottom: 0px;
+			left: 50%;
+			margin-left: -100px;
+		}
+	}
+}
+.friendWrapper {
+	position: fixed;
+	right: 0px;
+	top: 10%;
+	width: 30%;
+	.friendList {
+		.item {
+			margin-bottom: 40px;
+			position: relative;
+			img {
+				width: 60px;
+				height: 60px;
+				float: left;
+			}
+			button {
+				display: inline-block;
+				position: absolute;
+				right: 0px;
+				z-index: 999;
+				top: 15px;
+				height: 30px;
+				width: 80px;
+				border: 1px solid #ccc;
+				margin-right: 50px;
+			}
+		}
+	}
+	.white {
+		background-color: white;
+	}
+	.green {
+		background-color: green;
+		color: white;
+	}
+}
