@@ -12,4 +12,4 @@ const changeTodo = (id) => {
 const visibleFilter = (filter) => {
 	return {type: filter}
 }
-export {toggleTodo, changeTodo};
+export {toggleTodo, changeTodo, visibleFilter};

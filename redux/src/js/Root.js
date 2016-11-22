@@ -5,7 +5,7 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import List from './containers/List';
 import InputBar from './containers/InputBar';
-
+import TabBar from './containers/TabBar';
 import reducer from './reducers/';
 
 const store = createStore(reducer);
@@ -15,6 +15,7 @@ class Root extends Component {
 			<div>
 				<InputBar/>
 				<List/>	
+				<TabBar/>
 			</div>
 		)
 	}
