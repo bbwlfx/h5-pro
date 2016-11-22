@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDom from 'react-dom';
 
 import {createStore} from 'redux';
-
+import {Provider} from 'react-redux';
 import List from './containers/List';
 import InputBar from './containers/InputBar';
 
@@ -22,7 +22,9 @@ class Root extends Component {
 
 const render = () => {
 	ReactDom.render(
-		<Root></Root>,
+		<Provider store={store}>
+			<Root/>	
+		</Provider>,
 		document.getElementById('root')
 	)
 }
