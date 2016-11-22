@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        demo: './src/js/Root.js'
+        demo: './src/js/App.js'
     },
 
     output: {

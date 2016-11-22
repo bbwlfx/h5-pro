@@ -1,13 +1,17 @@
-import react, {Component} from 'react';
-import actions from '../../actions';
+import React, {Component} from 'react';
+import toggleTodo from '../actions';
 class InputBar extends Component {
-	addHandle(text) {
-		this.props.store.dispatch(toggleTodo(text));
+	addHandle() {
+		this.props.store.dispatch(toggleTodo(this.refs._inp.value));
 	}
 	render () {
 		return (
-			<input type="text" ref="_inp"></input>
-			<button value="add" onClick={this.addhandle(this.refs._inp.value)}>add</button>
+			<div>
+				<input type="text" ref="_inp"></input>
+				<button value="add" onClick={this.addHandle.bind(this)}>add</button>
+			</div>
+				
 		)
 	}
 }
+export default InputBar;
