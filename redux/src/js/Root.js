@@ -13,8 +13,8 @@ class Root extends Component {
 	render () {
 		return (
 			<div>
-				<InputBar store={store}/>
-				<List store={store}/>	
+				<InputBar/>
+				<List/>	
 			</div>
 		)
 	}
