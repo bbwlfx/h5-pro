@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import toggleTodo from '../actions';
+import {toggleTodo} from '../actions';
 class InputBar extends Component {
 	// addHandle() {
 	// 	this.props.store.dispatch(toggleTodo(this.refs._inp.value));

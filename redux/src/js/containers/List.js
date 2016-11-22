@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import Item from '../components/Item';
-
-
+import Item from './Item';
 
 class List extends Component {
 	render () {
-		// const state = this.props.store.getState();
-		// let arr = state.map((item, index) => {
-		// 	return <Item text={item} key={1000+index}></Item>
-		// })
+
 		return (
 			<div className="list-wrapper">
 				<ul>
@@ -21,11 +16,19 @@ class List extends Component {
 }
 
 
+
 const mapStateToProps = (state) => {
+	const {addTodo} = state;
 	return {
-		arr: state.map((item, index) => {
-			return <Item text={item} key={1000+index}></Item>
+		arr: addTodo.map((item, index) => {
+			if(item.filter) {
+				return <Item text={item.text} key={1000+index} filter="true" dataid={item.id}></Item>
+			} else {
+				return <Item text={item.text} key={1000+index} filter="false" dataid={item.id}></Item>
+			}
 		})
 	}
 }
+
+
 export default connect(mapStateToProps, null)(List);

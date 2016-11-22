@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import List from './containers/List';
 import InputBar from './containers/InputBar';
 
-import reducer from './reducers/addTodo';
+import reducer from './reducers/';
 
 const store = createStore(reducer);
 class Root extends Component {
@@ -29,5 +29,4 @@ const render = () => {
 	)
 }
 
-store.subscribe(render);
 render();
