@@ -2,13 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Item from './Item';
 
+import {saveState} from '../localStorageAPI';
+
 class List extends Component {
 	render () {
-
+		const {arr} = this.props;
 		return (
 			<div className="list-wrapper">
 				<ul>
-					{this.props.arr}
+					{arr}
 				</ul>
 			</div>
 		)
@@ -19,6 +21,8 @@ class List extends Component {
 
 const mapStateToProps = (state) => {
 	const {addTodo, visibleFilter} = state;
+	console.log(state);
+	saveState(state);
 	return {
 		arr: addTodo.map((item, index) => {
 			if (visibleFilter == 'SHOW_ALL') {
